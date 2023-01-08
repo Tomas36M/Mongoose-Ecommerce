@@ -1,0 +1,23 @@
+{{#with product}}
+<div class="container pt-4">
+    <div class="card" style="width: 24rem;">
+        <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/assortment-of-colorful-ripe-tropical-fruits-top-royalty-free-image-995518546-1564092355.jpg"
+            class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{this.title}}</h5>
+            <p class="card-text">{{this.description}}</p>
+            <p>Price: {{this.price}}</p>
+            <p>Category: {{this.category}}</p>
+        </div>
+    </div>
+</div>
+{{/with}}
+
+<style>
+    .container{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>

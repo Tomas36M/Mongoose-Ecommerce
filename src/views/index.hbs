@@ -1,0 +1,59 @@
+<div class="container mt-4">
+    <div class="row" id="products-card">
+        <div class="col-sm-3 mb-4">
+        </div>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary mb-2 mx-2" style="position: fixed; bottom: 0;right:0;"
+    data-bs-toggle="modal" data-bs-target="#exampleModal">
+    +
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add product</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="create-product-form">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            name="description"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="exampleFormControlInput1" name="price">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Code</label>
+                        <input type="number" class="form-control" id="exampleFormControlInput1" name="code">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Category</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="category">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Stock</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="stock">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="js/main.js"></script>

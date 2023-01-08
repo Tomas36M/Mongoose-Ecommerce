@@ -1,0 +1,90 @@
+[
+  {
+    "id": "63b7930c23601242c3976c6c",
+    "title": "Aguacate",
+    "description": "muy rico aguacate",
+    "price": 77,
+    "thumbnails": [],
+    "code": 238,
+    "status": true,
+    "category": "food",
+    "stock": 8
+  },
+  {
+    "id": "63b850a4c2fa4555218c3e1f",
+    "title": "Mandarina",
+    "description": "Muy rica mandarina",
+    "price": 77,
+    "thumbnails": [],
+    "code": 28,
+    "status": true,
+    "category": "food",
+    "stock": 8
+  },
+  {
+    "id": "63b8ad482276d444dbf4abee",
+    "title": "Manzana",
+    "description": "Muy rica manzana",
+    "price": 77,
+    "thumbnails": [],
+    "code": 528,
+    "status": true,
+    "category": "food",
+    "stock": 8
+  },
+  {
+    "id": "63b8e43150f9dd755853bae4",
+    "title": "Pera",
+    "description": "Muy rica pera",
+    "price": 77,
+    "thumbnails": [],
+    "code": 508,
+    "status": true,
+    "category": "food",
+    "stock": 8
+  },
+  {
+    "id": "63b8e46a8d5b45af9f61b792",
+    "title": "Uvas",
+    "description": "Muy ricas uvas",
+    "price": 77,
+    "thumbnails": [],
+    "code": 511,
+    "status": true,
+    "category": "food",
+    "stock": 8
+  },
+  {
+    "id": "63b9f6876b4478f85c1cc156",
+    "title": "Pollo",
+    "description": "Muy feo pollo",
+    "price": "1234",
+    "thumbnails": [],
+    "code": "777",
+    "status": true,
+    "category": "Food",
+    "stock": "30"
+  },
+  {
+    "id": "63b9f8fb5152fbd8322fdf0e",
+    "title": "Papaya",
+    "description": "Muy rica papaya",
+    "price": "222",
+    "thumbnails": [],
+    "code": "112",
+    "status": true,
+    "category": "Food",
+    "stock": "22"
+  },
+  {
+    "id": "63ba20329549453df37a5b5c",
+    "title": "Coco",
+    "description": "Muy rico coco",
+    "price": "2222",
+    "thumbnails": [],
+    "code": "875",
+    "status": true,
+    "category": "Food",
+    "stock": "11"
+  }
+]
