@@ -86,5 +86,16 @@
     "status": true,
     "category": "Food",
     "stock": "11"
+  },
+  {
+    "id": "63bb74392c1ac246be7b4541",
+    "title": "ssss",
+    "description": "sqdwdwqd",
+    "price": "111",
+    "thumbnails": [],
+    "code": "1111",
+    "status": true,
+    "category": "sssss",
+    "stock": "44"
   }
 ]

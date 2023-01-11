@@ -5,15 +5,6 @@ const createProductForm = document.getElementById("create-product-form");
 
 socket.on("products", (products) => {
 
-    // const deleteProduct = async (id) => {
-    //     await fetch(`/api/products/${id}`, {
-    //         method: "DELETE",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //     });
-    // }
-
     const allProductsElements = products
         .map(
             (product) => ` 

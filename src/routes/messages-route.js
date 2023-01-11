@@ -29,7 +29,8 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const result = await messageModel.create(req.body);
-        req.app.get("io").sockets.emit("messages", result);
+        const messages = await messageModel.find();
+        req.app.get("io").sockets.emit("messages", messages);
         res.status(200).send(result)
     } catch (err) {
         res.status(500).send({status: 'Server Error', message: err})
