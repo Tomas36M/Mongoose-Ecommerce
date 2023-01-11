@@ -49,7 +49,7 @@ mongoose.connect('mongodb+srv://tomasmunevare:fgRiXYLWtYXXaiXm@cluster0.uwzu8jg.
         return
     }
     console.log('DB connected');
-    httpServer.listen(8090, () => {
+    httpServer.listen(8080, () => {
         console.log('Server running on port 8080');
     });
 });
