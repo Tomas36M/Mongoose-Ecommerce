@@ -66,16 +66,17 @@ io.on('connection', async socket => {
     socket.on("addProduct", async (product) => {
         try {
             await productModel.create(product);
+            await productModel.deleteOne(product);
             await manager.addProduct(product);
-            io.sockets.emit("products", await productModel.find());
+            io.sockets.emit("products", products);
         } catch (error) {
             console.log(error);
         }
     });
-    socket.on("addMessage", async (message) => {
+    socket.on("message", async (message) => {
         try {
             await messageModel.create(message);
-            io.sockets.emit("messages", await messageModel.find());
+            io.sockets.emit("messages", messages);
         } catch (error) {
             console.log(error);
         }

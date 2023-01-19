@@ -1,16 +1,5 @@
 [
   {
-    "id": "63b7930c23601242c3976c6c",
-    "title": "Aguacate",
-    "description": "muy rico aguacate",
-    "price": 77,
-    "thumbnails": [],
-    "code": 238,
-    "status": true,
-    "category": "food",
-    "stock": 8
-  },
-  {
     "id": "63b850a4c2fa4555218c3e1f",
     "title": "Mandarina",
     "description": "Muy rica mandarina",
@@ -97,5 +86,60 @@
     "status": true,
     "category": "sssss",
     "stock": "44"
+  },
+  {
+    "id": "63c1f37416c48bee54cd4503",
+    "title": "jgkjh",
+    "description": "nbv,mn,jbm",
+    "price": "7878787",
+    "thumbnails": [],
+    "code": "987654",
+    "status": true,
+    "category": "sssss",
+    "stock": "555"
+  },
+  {
+    "id": "63c3133dcd4dcb8814813802",
+    "title": "sssss",
+    "description": "sssss",
+    "price": "2222",
+    "thumbnails": [],
+    "code": "2222",
+    "status": true,
+    "category": "Fruit",
+    "stock": "555"
+  },
+  {
+    "id": "63c89b803ac6f0783ecfd6e9",
+    "title": "Uvas",
+    "description": "Muy ricas uvas",
+    "price": 12,
+    "thumbnails": [],
+    "code": 211,
+    "status": true,
+    "category": "food",
+    "stock": 8
+  },
+  {
+    "id": "63c89c4ddbab2627d30e6b77",
+    "title": "Sandia",
+    "description": "Rica sandia",
+    "price": "1",
+    "thumbnails": [],
+    "code": "89",
+    "status": true,
+    "category": "Fruit",
+    "stock": "22"
+  },
+  {
+    "id": "63c89caa7a9966d250e71500",
+    "title": "sandia",
+    "description": "dddd",
+    "price": "1",
+    "thumbnails": [],
+    "code": "76",
+    "status": true,
+    "category": "sssss",
+    "stock": "2"
   }
 ]
