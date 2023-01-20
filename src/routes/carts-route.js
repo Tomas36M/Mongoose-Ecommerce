@@ -10,6 +10,8 @@ router.get('/:id', async (req, res) => {
     try {
         const id = req.params.id
         const result = await cartsModel.findOne({ _id: id }).populate('products.product')
+
+        console.log(result);
         if (result) {
             res.status(200).send(result)
         } else {
@@ -55,7 +57,7 @@ router.post('/:cid/products/:pid', async (req, res) => {
     }
 })
 
-router.delete('/:cid/products/:pid', async (req, res) => { 
+router.delete('/:cid/products/:pid', async (req, res) => {
     try {
         const { cid, pid } = req.params;
         const cartDoc = await cartsModel.findOne({ _id: cid });
@@ -84,7 +86,7 @@ router.delete('/:cid/products/:pid', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         const id = req.params.id
-        const result = await cartsModel.updateOne({ _id: id }, { $set: { products: [] }});
+        const result = await cartsModel.updateOne({ _id: id }, { $set: { products: [] } });
         if (result.matchedCount > 0) {
             res.status(200).send(result)
         } else {
@@ -98,7 +100,7 @@ router.delete('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try {
         const id = req.params.id
-        const result = await cartsModel.updateOne({ _id: id }, { $set: { products: req.body }});
+        const result = await cartsModel.updateOne({ _id: id }, { $set: { products: req.body } });
         if (result.matchedCount > 0) {
             res.status(200).send(result)
         } else {

@@ -12,9 +12,10 @@
                     <p>Category: {{this.category}}</p>
                     <a href='/products/{{this._id}}'>Prodcut url</a>
                     <br />
-                    <button value={{this._id}} class="add-product">Agrgar al carrito</button>
-                    <button value={{this._id}} class="delete-product-cart">Quitar del carrito</button>
-                    <button value={{this._id}} class="delete-product">Eliminar Producto</button>
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button value={{this._id}} type="button" class="btn btn-primary add-product">Add</button>
+                        <button value={{this._id}} type="button" class="btn btn-danger delete-product-cart">Delete</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,18 +46,19 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        
+
         {{#each cart.products}}
         <div class="card mb-3">
-            <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/assortment-of-colorful-ripe-tropical-fruits-top-royalty-free-image-995518546-1564092355.jpg" class="card-img-top" alt="img">
+            <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/assortment-of-colorful-ripe-tropical-fruits-top-royalty-free-image-995518546-1564092355.jpg"
+                class="card-img-top" alt="img">
             <div class="card-body">
-                <h5 class="card-title">{{this.id}}Titulo</h5>
-                <p class="card-text">{{this.description}}Descripcion</p>
-                <p class="card-text"><small class="text-muted">Price: {{this.price}}</small></p>
+                <h5 class="card-title">{{this.product.title}}</h5>
+                <p class="card-text">{{this.product.description}}</p>
+                <p class="card-text"><small class="text-muted">Price: {{this.product.price}}</small></p>
             </div>
         </div>
         {{/each}}
-        
+
     </div>
 </div>
 

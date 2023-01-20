@@ -3,15 +3,6 @@ const socket = io();
 const productsContainer = document.getElementById("products-card");
 const createProductForm = document.getElementById("create-product-form");
 
-const deleteProdcut = async (id) => {
-    await fetch(`/api/products/${id}`), {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    }
-}
-
 socket.on("products", (products) => {
 
     const allProductsElements = products

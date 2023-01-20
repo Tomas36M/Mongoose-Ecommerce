@@ -9,6 +9,7 @@ import cartRouter from './routes/carts-route.js';
 import messageRouter from './routes/messages-route.js';
 import messagesViewRouter from './routes/messages-views-router.js';
 import productViewRouter from './routes/product-views-route.js';
+import cartViewRouter from './routes/carts-view-route.js';
 
 import productModel from './dao/models/products-model.js';
 import messageModel from './dao/models/messeges-model.js';
@@ -40,6 +41,7 @@ app.use('/products', productViewRouter);
 app.use('/api/carts', cartRouter);
 app.use('/api/messages', messageRouter);
 app.use('/messages', messagesViewRouter);
+app.use('/carts', cartViewRouter)
 
 
 mongoose.set('strictQuery', false);
@@ -66,7 +68,6 @@ io.on('connection', async socket => {
     socket.on("addProduct", async (product) => {
         try {
             await productModel.create(product);
-            await productModel.deleteOne(product);
             await manager.addProduct(product);
             io.sockets.emit("products", products);
         } catch (error) {

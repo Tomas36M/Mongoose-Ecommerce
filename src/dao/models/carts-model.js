@@ -2,8 +2,14 @@ import mongoose from "mongoose";
 
 const cartsSchema = new mongoose.Schema({
     products: {
-        type: Array,
-        ref: 'products'
+        type: [
+            {
+                product: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "products"
+                }
+            }
+        ]
     }
 })
 

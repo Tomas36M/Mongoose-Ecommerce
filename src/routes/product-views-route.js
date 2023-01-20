@@ -25,7 +25,8 @@ router.get('/', async (req, res) => {
         sort: sort ? {price: sort} : null
     })
 
-    const cart = await cartsModel.findOne({ _id: '63c644ddc42b52268bb69ac5' }).populate('products.product').lean()
+    const cart = await cartsModel.findOne({ _id: '63c644ddc42b52268bb69ac5' }).populate('products.product').lean().exec();
+    
 
     result.prevLink = result.hasPrevPage ? `/products?page=${result.prevPage}` : ''
     result.nextLink = result.hasNextPage ? `/products?page=${result.nextPage}` : ''

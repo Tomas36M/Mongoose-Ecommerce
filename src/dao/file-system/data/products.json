@@ -1,16 +1,5 @@
 [
   {
-    "id": "63b850a4c2fa4555218c3e1f",
-    "title": "Mandarina",
-    "description": "Muy rica mandarina",
-    "price": 77,
-    "thumbnails": [],
-    "code": 28,
-    "status": true,
-    "category": "food",
-    "stock": 8
-  },
-  {
     "id": "63b8ad482276d444dbf4abee",
     "title": "Manzana",
     "description": "Muy rica manzana",

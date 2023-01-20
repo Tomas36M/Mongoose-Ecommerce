@@ -57,7 +57,7 @@ router.get('/:uuid', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const result = await productModel.create(req.body);
-        const products = await productModel.paginate({},{});
+        const products = await productModel.find();
         if (result) {
             const { title, description, price, thumbnails, code, category, stock } = req.body;
             await manager.addProduct(result._id, title, description, price, thumbnails, code, category, stock);
