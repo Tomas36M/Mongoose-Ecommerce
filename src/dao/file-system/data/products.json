@@ -130,5 +130,16 @@
     "status": true,
     "category": "sssss",
     "stock": "2"
+  },
+  {
+    "id": "63cb4ad4bb3f1e2e2fe40771",
+    "title": "Uvas",
+    "description": "Muy ricas uvas",
+    "price": 12,
+    "thumbnails": [],
+    "code": 2811,
+    "status": true,
+    "category": "food",
+    "stock": 8
   }
 ]

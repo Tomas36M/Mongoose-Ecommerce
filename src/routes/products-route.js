@@ -29,7 +29,6 @@ router.get('/', async (req, res) => {
             sort: sort ? {price: sort} : null
         });
 
-
         if (products) {
             res.status(200).send({status: 'sucess', ...products});
         } else {
@@ -57,11 +56,10 @@ router.get('/:uuid', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const result = await productModel.create(req.body);
-        const products = await productModel.find();
         if (result) {
             const { title, description, price, thumbnails, code, category, stock } = req.body;
             await manager.addProduct(result._id, title, description, price, thumbnails, code, category, stock);
-            req.app.get("io").sockets.emit("products", products);
+            req.app.get("io").sockets.emit("products", result);
             res.status(200).send(result);
         }
     } catch (err) {

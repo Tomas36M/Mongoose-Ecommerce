@@ -72,7 +72,7 @@ router.delete('/:cid/products/:pid', async (req, res) => {
                     await cartsModel.updateOne({ _id: cid }, { $pull: { "products": { "product": pid } } });
                 }
             } else {
-                res.status(400).send({ status: 'Not Found', message: `El producto a eliminar no existe.` })
+                return res.status(400).send({ status: 'Not Found', message: `El producto a eliminar no existe.` })
             }
             res.status(200).send({ status: 'sucess' });
         } else {
@@ -121,7 +121,7 @@ router.put('/:cid/products/:pid', async (req, res) => {
             if (index >= 0) {
                 await cartsModel.updateOne({ _id: cid, 'products.product': pid }, { $set: { 'products.$.quantity': req.body.quantity } });
             } else {
-                res.status(400).send({ status: 'Not Found', message: `El producto a cambiar no existe.` })
+                return res.status(400).send({ status: 'Not Found', message: `El producto a cambiar no existe.` })
             }
             res.status(200).send({ status: 'sucess' });
         } else {
