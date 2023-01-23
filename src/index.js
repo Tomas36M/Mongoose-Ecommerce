@@ -4,13 +4,15 @@ import __dirname from './utils.js';
 import mongoose from 'mongoose';
 import { Server as HttpServer } from 'http'
 import { Server as IOServer } from 'socket.io'
+import session from 'express-session'
+import MongoStore from 'connect-mongo'
+
 import productRoute from './routes/products-route.js'
 import cartRouter from './routes/carts-route.js';
 import messageRouter from './routes/messages-route.js';
 import messagesViewRouter from './routes/messages-views-router.js';
 import productViewRouter from './routes/product-views-route.js';
 import cartViewRouter from './routes/carts-view-route.js';
-
 import productModel from './dao/models/products-model.js';
 import messageModel from './dao/models/messeges-model.js';
 import ProductManager from './dao/file-system/products-manager.js';
@@ -43,9 +45,28 @@ app.use('/api/messages', messageRouter);
 app.use('/messages', messagesViewRouter);
 app.use('/carts', cartViewRouter)
 
+const MONGO_URI = 'mongodb+srv://tomasmunevare:fgRiXYLWtYXXaiXm@cluster0.uwzu8jg.mongodb.net/?retryWrites=true&w=majority'
+
+app.use(session({
+    store: MongoStore.create({
+        mongoUrl: MONGO_URI,
+        mongoOptions: {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        },
+        ttl: 30
+    }),
+    resave: true,
+    saveUninitialized: true
+}))
+
+const auth = (req, res, next) => {
+    if(req.session?.user) return next();
+    return res.status(401).render('errors/base', {error: 'No authenticado'});
+}
 
 mongoose.set('strictQuery', false);
-mongoose.connect('mongodb+srv://tomasmunevare:fgRiXYLWtYXXaiXm@cluster0.uwzu8jg.mongodb.net/?retryWrites=true&w=majority', (err) => {
+mongoose.connect(MONGO_URI, (err) => {
     if (err) {
         console.log('No se pudo conectar a la base de datos: ' + err);
         return
