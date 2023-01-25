@@ -1,5 +1,5 @@
 import { Router } from "express";
-import messageModel from "../dao/models/messeges-model.js";
+import messageModel from "../../dao/models/messeges-model.js";
 
 const router = Router();
 
@@ -29,9 +29,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const result = await messageModel.create(req.body);
-        const messages = await messageModel.find();
-        req.app.get("io").sockets.emit("messages", messages);
-        res.status(200).send(result)
+        res.status(200).send(result);
     } catch (err) {
         res.status(500).send({status: 'Server Error', message: err})
     }

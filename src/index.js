@@ -2,28 +2,19 @@ import express from 'express';
 import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import mongoose from 'mongoose';
-import { Server as HttpServer } from 'http'
-import { Server as IOServer } from 'socket.io'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 
-import productRoute from './routes/products-route.js'
-import cartRouter from './routes/carts-route.js';
-import messageRouter from './routes/messages-route.js';
-import messagesViewRouter from './routes/messages-views-router.js';
-import productViewRouter from './routes/product-views-route.js';
-import cartViewRouter from './routes/carts-view-route.js';
-import productModel from './dao/models/products-model.js';
-import messageModel from './dao/models/messeges-model.js';
-import ProductManager from './dao/file-system/products-manager.js';
+import adminViewRoute from './routes/session/admin-session-views.js';
+import productRoute from './routes/products/products-route.js'
+import cartRouter from './routes/carts/carts-route.js';
+import messageRouter from './routes/messages/messages-route.js';
+import messagesViewRouter from './routes/messages/messages-views-router.js';
+import productViewRouter from './routes/products/product-views-route.js';
+import cartViewRouter from './routes/carts/carts-view-route.js';
+import sessionRouter from './routes/session/sessions-route.js';
 
 const app = express();
-const manager = new ProductManager('./src/dao/file-system/data/products.json')
-
-const httpServer = new HttpServer(app);
-const io = new IOServer(httpServer);
-
-app.set("io", io);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -38,13 +29,6 @@ app.engine('hbs', handlebars.engine({
 app.set('views', __dirname + '/views');
 app.set('view engine', 'hbs');
 
-app.use('/api/products', productRoute);
-app.use('/products', productViewRouter);
-app.use('/api/carts', cartRouter);
-app.use('/api/messages', messageRouter);
-app.use('/messages', messagesViewRouter);
-app.use('/carts', cartViewRouter)
-
 const MONGO_URI = 'mongodb+srv://tomasmunevare:fgRiXYLWtYXXaiXm@cluster0.uwzu8jg.mongodb.net/?retryWrites=true&w=majority'
 
 app.use(session({
@@ -54,16 +38,37 @@ app.use(session({
             useNewUrlParser: true,
             useUnifiedTopology: true
         },
-        ttl: 30
+        ttl: 300
     }),
     resave: true,
+    secret: 'mangostino',
     saveUninitialized: true
 }))
 
 const auth = (req, res, next) => {
-    if(req.session?.user) return next();
+    if(req.session?.user){    
+        return next();
+    }
     return res.status(401).render('errors/base', {error: 'No authenticado'});
 }
+
+const adminAuth = (req, res, next) => {
+    if(req.session?.user && req.session?.user.rol == 'admin'){    
+        return next();
+    }
+    return res.status(401).render('errors/base', {error: 'No authenticado o no eres administardor.'});
+}
+
+
+app.use('/sessions', sessionRouter)
+
+app.use('/admin', adminAuth, adminViewRoute);
+app.use('/api/products', productRoute);
+app.use('/products', auth, productViewRouter);
+app.use('/api/carts', cartRouter);
+app.use('/carts', auth, cartViewRouter)
+app.use('/api/messages', messageRouter);
+app.use('/messages', auth, messagesViewRouter);
 
 mongoose.set('strictQuery', false);
 mongoose.connect(MONGO_URI, (err) => {
@@ -72,35 +77,7 @@ mongoose.connect(MONGO_URI, (err) => {
         return
     }
     console.log('DB connected');
-    httpServer.listen(8080, () => {
+    app.listen(8080, () => {
         console.log('Server running on port 8080');
     });
 });
-
-io.on('connection', async socket => {
-    console.log(`New client connected, id: ${socket.id}`);
-
-    const products = await productModel.find();
-    const messages = await messageModel.find();
-
-    io.sockets.emit("products", products);
-    io.sockets.emit("messages", messages);
-
-    socket.on("addProduct", async (product) => {
-        try {
-            await productModel.create(product);
-            await manager.addProduct(product);
-            io.sockets.emit("products", products);
-        } catch (error) {
-            console.log(error);
-        }
-    });
-    socket.on("message", async (message) => {
-        try {
-            await messageModel.create(message);
-            io.sockets.emit("messages", messages);
-        } catch (error) {
-            console.log(error);
-        }
-    });
-})

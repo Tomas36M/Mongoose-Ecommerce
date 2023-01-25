@@ -1,7 +1,7 @@
 import { Router } from "express";
-import cartsModel from "../dao/models/carts-model.js";
-import CartManager from "../dao/file-system/carts-manager.js";
-import productModel from "../dao/models/products-model.js";
+import cartsModel from "../../dao/models/carts-model.js";
+import CartManager from "../../dao/file-system/carts-manager.js";
+import productModel from "../../dao/models/products-model.js";
 
 const router = Router();
 const manager = new CartManager('./src/dao/file-system/data/carts.json')
@@ -40,7 +40,8 @@ router.post('/:cid/products/:pid', async (req, res) => {
         const cartDoc = await cartsModel.findOne({ _id: cid });
         const productDoc = await productModel.findOne({ _id: pid });
         if (cartDoc && productDoc) {
-            const index = cartDoc.products.map(e => e.product).indexOf(pid);
+            const index = cartDoc.products.map(e => e.product.toString()).indexOf(pid);
+            console.log(index);
             if (index >= 0) {
                 const quantity = cartDoc.products[index].quantity;
                 await cartsModel.updateOne({ _id: cid, 'products.product': pid }, { $set: { 'products.$.quantity': quantity + 1 } });
@@ -63,7 +64,8 @@ router.delete('/:cid/products/:pid', async (req, res) => {
         const cartDoc = await cartsModel.findOne({ _id: cid });
         const productDoc = await productModel.findOne({ _id: pid });
         if (cartDoc && productDoc) {
-            const index = cartDoc.products.map(e => e.product).indexOf(pid);
+            const index = cartDoc.products.map(e => e.product.toString()).indexOf(pid)
+            console.log(index);
             if (index >= 0) {
                 const quantity = cartDoc.products[index].quantity;
                 if (quantity > 1) {

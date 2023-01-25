@@ -141,5 +141,106 @@
     "status": true,
     "category": "food",
     "stock": 8
+  },
+  {
+    "id": "63d0c7384da7b0a5e13e62fe",
+    "title": "Guitarra",
+    "description": "Guitarra Taylor en madera, electro acusitca, con forro",
+    "price": 300,
+    "thumbnails": [],
+    "code": 1,
+    "status": true,
+    "category": "Music",
+    "stock": 15
+  },
+  {
+    "id": "63d0d3dd3714119d8c438a24",
+    "title": "Gamecube",
+    "description": "Consola de Nintendo, con dos controles, cables y una memory card",
+    "price": 300,
+    "thumbnails": [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjolt3qqTZiKVRnYWunDL3phtipc-bsIT1wA&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAcfn8e8_-tPFaKlq3FUNbu-FoxRHz9B5xXg&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbxoOTw7lLpaHCRLFOvRB5AuBZxXlLW6CH9A&usqp=CAU"
+    ],
+    "code": 6,
+    "status": true,
+    "category": "Music",
+    "stock": 15
+  },
+  {
+    "id": "63d0d4cc326b637a9e3c80ca",
+    "title": "Guitarra Taylor",
+    "description": "Guitarra Electro Acustica Teylor mini, en madera de roble. Con estuche",
+    "price": 700,
+    "thumbnails": [
+      "https://cdn.mos.cms.futurecdn.net/MprFbajKGGPRNWjkpjHJPB-1200-80.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSZPCON5_8iZCK35BDgjuk7yuJdrvOU58e1Q&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW0X98jA2IQ4kfp3pCEixE-ohqWOfm8LYKWfDzG0HfjO_SDAZJdSggYEFQ_l98inXw8fY&usqp=CAU"
+    ],
+    "code": 7,
+    "status": true,
+    "category": "Music",
+    "stock": 15
+  },
+  {
+    "id": "63d0d5c411716b7c2c51d17e",
+    "title": "Play 4",
+    "description": "Consola de sony, con 2 controles, cables y 3 juegos.",
+    "price": 1000,
+    "thumbnails": [
+      "https://i.blogs.es/f13613/playstation-4/1366_521.jpg",
+      "https://es.digitaltrends.com/wp-content/uploads/2022/04/ps4-vs-ps4-slim.jpeg?p=1",
+      "https://media.istockphoto.com/id/1284696272/photo/sony-play-station-4-pro-gaming-console-on-the-table-with-two-joysticks-and-some-games-on-dvd.jpg?s=612x612&w=0&k=20&c=CsR9oKLeyqPgHLdyv4jFoL8aAHbpGZgAGvcuzFsoDwQ="
+    ],
+    "code": 9,
+    "status": true,
+    "category": "Music",
+    "stock": 15
+  },
+  {
+    "id": "63d0d7dd676afab8a999c92d",
+    "title": "Vinilos",
+    "description": "Coleccion de vinilos de musica rock, en perfecto estado y con caratula original",
+    "price": 1000,
+    "thumbnails": [
+      "https://www.hogarmania.com/archivos/202010/5-ideas-organizar-vinilos-forma-decorativa-668x400x80xX-1.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgD_HfQhTj5If-JwvfAKmAcjh593pbUsCyrA&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQZRpINlS3DSvU-Pm1PMUP7_qtKtqeskZDvw&usqp=CAU"
+    ],
+    "code": 10,
+    "status": true,
+    "category": "Music",
+    "stock": 15
+  },
+  {
+    "id": "63d0d919984009ff194ee67b",
+    "title": "Saga Harry Potter",
+    "description": "Saga completa de Harry Potter edicion Salamadra, nuevos y sellados. Con caja decorativa",
+    "price": 250,
+    "thumbnails": [
+      "https://apollo-virginia.akamaized.net/v1/files/kyf6mhxsh0y3-CO/image",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSycF05x_NzK0B95EZUUL8fVsjcjhqX3UtTHA&usqp=CAU",
+      "https://pbs.twimg.com/media/Ek9IikLXUAEnsiJ.jpg"
+    ],
+    "code": 11,
+    "status": true,
+    "category": "Music",
+    "stock": 15
+  },
+  {
+    "id": "63d0da6692938df7fd9abf23",
+    "title": "Prensa Francesa",
+    "description": "Metodo de cafe estilo frances, en vidrio, recubierta de metal. Producto nuevo y sellado",
+    "price": 100,
+    "thumbnails": [
+      "http://cdn.shopify.com/s/files/1/0003/3836/2377/articles/DSCF2590_1200x1200.jpg?v=1532618875",
+      "https://media.glamour.mx/photos/6190755da6e030d6480f9dec/master/w_1600%2Cc_limit/222791.jpg",
+      "https://perfectdailygrind.com/es/wp-content/uploads/sites/2/2018/12/ivan-calderon-EqReelPJzDk-unsplash-e1586363227890.jpg"
+    ],
+    "code": 12,
+    "status": true,
+    "category": "Cofee",
+    "stock": 15
   }
 ]

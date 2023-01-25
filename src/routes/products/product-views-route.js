@@ -1,11 +1,11 @@
 import { Router } from "express";
-import productModel from "../dao/models/products-model.js";
-import cartsModel from "../dao/models/carts-model.js";
+import productModel from "../../dao/models/products-model.js";
+import cartsModel from "../../dao/models/carts-model.js";
 
 const router = Router();
 
 router.get('/', async (req, res) => {
-    const limit = req.query?.limit || 4
+    const limit = req.query?.limit || 3
     const page = req.query?.page || 1
     const sort = req.query?.sort 
     const query = req.query?.filter || req.body?.filter || ''
@@ -34,14 +34,8 @@ router.get('/', async (req, res) => {
 
     res.render('index', {
         result,
-        cart
-    });
-})
-
-router.get('/realtime', async (req, res) => {
-    const products = await productModel.find().lean().exec();
-    res.render('realtime', {
-        products
+        cart,
+        username: req.session.user
     });
 })
 
