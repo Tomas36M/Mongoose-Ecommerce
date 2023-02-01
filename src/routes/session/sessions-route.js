@@ -24,18 +24,11 @@ router.get('/login', async (req, res) => {
 })
 
 // Api de Login
-router.post('/login', (req, res, next) => {
-    /* look at the 2nd parameter to the below call */
-    passport.authenticate('login', (err, user, info) => {
-        if (err) { return next(err); }
-        console.log(user);
-        if (!user) { return res.redirect('/sessions/login'); }
-        req.logIn(user, function (err) {
-            if (err) { return next(err); }
-            return res.redirect('/products');
-        });
-    })(req, res, next);
-});
+router.post('/login', passport.authenticate('login', {
+    failureRedirect: '/errors/base',
+    successRedirect: '/products',
+    failureFlash: true
+}));
 
 // Api de Logout
 router.get('/logout', async (req, res) => {

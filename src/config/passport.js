@@ -35,40 +35,27 @@ const initializePassport = () => {
         }
     ));
 
-    // passport.use('login', new LocalStrategy(
-    //     async (username, password, done) => {
-    //         /* see done being invoked with different paramters
-    //            according to different situations */
-    //         console.log(username);
-    //         await userModel.findOne({ email: username }, function (err, user) {
-    //             if (err) { return done(err); }
-    //             if (!user) { return done(null, false); }
-    //             if (!isValidPassoword(user, password)) return done(null, false)
-    //             return done(null, user);
-    //         });
-    //     }
-    // ));
-
     passport.use('login', new LocalStrategy(
-        async (username, password, done) => {
+        {
+            passReqToCallback: true,
+            usernameField: 'email',
+            passwordField: 'password'
+        },
+        async (req, email, password, done) => {
             try {
-                const user = await userModel.findOne({ email: username }).lean().exec()
-
+                const user = await userModel.findOne({ email });
                 if (!user) {
                     console.error('User donst exist');
                     return done(null, false)
                 }
-
                 if (!isValidPassoword(user, password)) return done(null, false)
-                else {
-                    console.log('Te has logeado');
-                    return done(null, user)
-                }
+                req.session.user = user
+                return done(null, user)
             } catch (error) {
                 return done(error)
             }
         }
-    ));
+    ))
 
     passport.serializeUser((user, done) => {
         done(null, user._id)

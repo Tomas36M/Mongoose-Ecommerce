@@ -50,6 +50,7 @@ app.use(session({
 initializePassport()
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(passport.authenticate('session'));
 
 const auth = (req, res, next) => {
     if(req.session?.user){    
