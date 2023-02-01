@@ -1,10 +1,11 @@
 import express from 'express';
 import handlebars from 'express-handlebars';
-import __dirname from './utils.js';
 import mongoose from 'mongoose';
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
+import passport from 'passport';
 
+import __dirname from './utils.js';
 import adminViewRoute from './routes/session/admin-session-views.js';
 import productRoute from './routes/products/products-route.js'
 import cartRouter from './routes/carts/carts-route.js';
@@ -13,6 +14,7 @@ import messagesViewRouter from './routes/messages/messages-views-router.js';
 import productViewRouter from './routes/products/product-views-route.js';
 import cartViewRouter from './routes/carts/carts-view-route.js';
 import sessionRouter from './routes/session/sessions-route.js';
+import initializePassport from './config/passport.js';
 
 const app = express();
 
@@ -27,6 +29,7 @@ app.engine('hbs', handlebars.engine({
 }));
 
 app.set('views', __dirname + '/views');
+app.set('partials', __dirname + '/partials');
 app.set('view engine', 'hbs');
 
 const MONGO_URI = 'mongodb+srv://tomasmunevare:fgRiXYLWtYXXaiXm@cluster0.uwzu8jg.mongodb.net/?retryWrites=true&w=majority'
@@ -44,6 +47,9 @@ app.use(session({
     secret: 'mangostino',
     saveUninitialized: true
 }))
+initializePassport()
+app.use(passport.initialize());
+app.use(passport.session());
 
 const auth = (req, res, next) => {
     if(req.session?.user){    
@@ -56,7 +62,7 @@ const adminAuth = (req, res, next) => {
     if(req.session?.user && req.session?.user.rol == 'admin'){    
         return next();
     }
-    return res.status(401).render('errors/base', {error: 'No authenticado o no eres administardor.'});
+    return res.status(401).render('errors/base', {error: 'No autenticado o no eres administardor.'});
 }
 
 

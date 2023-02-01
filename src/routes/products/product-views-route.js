@@ -7,7 +7,7 @@ const router = Router();
 router.get('/', async (req, res) => {
     const limit = req.query?.limit || 3
     const page = req.query?.page || 1
-    const sort = req.query?.sort 
+    const sort = req.query?.sort
     const query = req.query?.filter || req.body?.filter || ''
 
     const search = {};
@@ -22,11 +22,11 @@ router.get('/', async (req, res) => {
         limit,
         page,
         lean: true,
-        sort: sort ? {price: sort} : null
+        sort: sort ? { price: sort } : null
     })
 
     const cart = await cartsModel.findOne({ _id: '63c644ddc42b52268bb69ac5' }).populate('products.product').lean().exec();
-    
+
 
     result.prevLink = result.hasPrevPage ? `/products?page=${result.prevPage}` : ''
     result.nextLink = result.hasNextPage ? `/products?page=${result.nextPage}` : ''
@@ -35,7 +35,8 @@ router.get('/', async (req, res) => {
     res.render('index', {
         result,
         cart,
-        username: req.session.user
+        user: req.session.user,
+        rol: req.session.user.rol === 'admin'
     });
 })
 
@@ -43,8 +44,16 @@ router.get('/:id', async (req, res) => {
     const id = req.params.id;
     const product = await productModel.findOne({ _id: id }).lean().exec();
     res.render('one-product', {
-        product
+        product,
+        user: req.session.user,
+        rol: req.session.user.rol === 'admin'
     });
 })
+
+// router.post('/create', async (req, res) => {
+//     const result = await productModel.create(req.body)
+//     res.redirect('products/' + result.toString(_id))
+// })
+
 
 export default router;

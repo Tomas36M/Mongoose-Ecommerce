@@ -3,7 +3,10 @@ import mongoosePaginate from 'mongoose-paginate-v2'
 
 const usersSchema = new mongoose.Schema({
     name: String,
-    email: String,
+    email: {
+        type: String,
+        unique: true
+    },
     password: String,
     rol: {
         type: String,

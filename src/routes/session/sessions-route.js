@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import usersModel from '../../dao/models/users.js'
+import passport from 'passport'
 
 const router = Router()
 
@@ -9,9 +10,8 @@ router.get('/register', async (req, res) => {
 })
 
 // Api para crear entrenadores
-router.post('/create', async (req, res) => {
+router.post('/create', passport.authenticate('register', {failureRedirect: 'errors/base'}), async (req, res) => {
     try {
-        await usersModel.create(req.body);
         res.redirect('/sessions/login')
     } catch (error) {
         res.status(500).send({status: 'Server Error', message: error})
@@ -20,20 +20,14 @@ router.post('/create', async (req, res) => {
 
 // Vista de login
 router.get('/login', async (req, res) => {
-
-    res.render('sessions/login', {
-        
-    })
+    res.render('sessions/login', {})
 })
 
 // Api de Login
-router.post('/login', async (req, res) => {
+router.post('/login', passport.authenticate('login', '/errors/base'), async (req, res) => {
 
-    const { email, password } = req.body
-
-    const user = await usersModel.findOne({ email, password }).lean().exec()
     if (!user) {
-        return res.status(401).render('errors/base', { error: 'Error en username y/o password' })
+        return res.status(401).render('errors/base', { error: 'Error en las credenciales.' })
     }
     req.session.user = user;
     req.session.user.rol = (user.rol == 'admin') ? 'admin' : 'usuario'
