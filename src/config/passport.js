@@ -13,11 +13,11 @@ const initializePassport = () => {
             passReqToCallback: true, usernameField: 'email'
         },
         async (req, username, password, done) => {
-            const {name, email } = req.body
+            const { name, email } = req.body
             try {
-                const user = await userModel.findOne({email: username})
+                const user = await userModel.findOne({ email: username })
                 console.log(user);
-                if(user) {
+                if (user) {
                     console.log('User already exits');
                     return done(null, false)
                 }
@@ -35,25 +35,41 @@ const initializePassport = () => {
         }
     ));
 
+    // passport.use('login', new LocalStrategy(
+    //     async (username, password, done) => {
+    //         /* see done being invoked with different paramters
+    //            according to different situations */
+    //         console.log(username);
+    //         await userModel.findOne({ email: username }, function (err, user) {
+    //             if (err) { return done(err); }
+    //             if (!user) { return done(null, false); }
+    //             if (!isValidPassoword(user, password)) return done(null, false)
+    //             return done(null, user);
+    //         });
+    //     }
+    // ));
+
     passport.use('login', new LocalStrategy(
-        { usernameField: 'email'},
-        async(username, password, done) => {
+        async (username, password, done) => {
             try {
-                const user = await userModel.findOne({email: username}).lean().exec()
-                
-                if(!user) {
+                const user = await userModel.findOne({ email: username }).lean().exec()
+
+                if (!user) {
                     console.error('User donst exist');
                     return done(null, false)
                 }
 
-                if(!isValidPassoword(user, password)) return done(null, false)
-                return done(null, user)
+                if (!isValidPassoword(user, password)) return done(null, false)
+                else {
+                    console.log('Te has logeado');
+                    return done(null, user)
+                }
             } catch (error) {
                 return done(error)
             }
         }
     ));
-    
+
     passport.serializeUser((user, done) => {
         done(null, user._id)
     });

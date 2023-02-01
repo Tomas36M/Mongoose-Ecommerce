@@ -10,11 +10,11 @@ router.get('/register', async (req, res) => {
 })
 
 // Api para crear entrenadores
-router.post('/create', passport.authenticate('register', {failureRedirect: 'errors/base'}), async (req, res) => {
+router.post('/create', passport.authenticate('register', 'errors/base'), async (req, res) => {
     try {
         res.redirect('/sessions/login')
     } catch (error) {
-        res.status(500).send({status: 'Server Error', message: error})
+        res.status(500).send({ status: 'Server Error', message: error })
     }
 })
 
@@ -24,15 +24,18 @@ router.get('/login', async (req, res) => {
 })
 
 // Api de Login
-router.post('/login', passport.authenticate('login', '/errors/base'), async (req, res) => {
-
-    if (!user) {
-        return res.status(401).render('errors/base', { error: 'Error en las credenciales.' })
-    }
-    req.session.user = user;
-    req.session.user.rol = (user.rol == 'admin') ? 'admin' : 'usuario'
-    res.redirect('/products')
-})
+router.post('/login', (req, res, next) => {
+    /* look at the 2nd parameter to the below call */
+    passport.authenticate('login', (err, user, info) => {
+        if (err) { return next(err); }
+        console.log(user);
+        if (!user) { return res.redirect('/sessions/login'); }
+        req.logIn(user, function (err) {
+            if (err) { return next(err); }
+            return res.redirect('/products');
+        });
+    })(req, res, next);
+});
 
 // Api de Logout
 router.get('/logout', async (req, res) => {
