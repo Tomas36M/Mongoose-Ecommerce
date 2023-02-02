@@ -10,14 +10,14 @@ passport.use('github', new GitHubStrategy(
     {
         clientID: 'Iv1.f98c63403e98b51d',
         clientSecret: 'dc40c239b0471ed5e62678037d79130b5a34e28d',
-        callbackURL: "http://localhost:8080/session/auth/github/callback"
+        callbackURL: "http://localhost:8080/sessions/auth/github/callback"
     },
     async (accessToken, refreshToken, profile, done) => {
 
         console.log(profile);
 
         try {
-            const user = await userModel.findOne({ email: profile._json.email })
+            const user = await userModel.findOne({ email: profile._json.login + '@gmail.com' })
             if (user) {
                 console.log('User already exits');
                 return done(null, user)
@@ -25,7 +25,7 @@ passport.use('github', new GitHubStrategy(
 
             const newUser = {
                 name: profile._json.name,
-                email: profile._json.email,
+                email: profile._json.login + '@gmail.com',
                 password: ''
             }
 
