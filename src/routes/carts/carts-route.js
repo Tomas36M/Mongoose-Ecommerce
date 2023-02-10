@@ -2,6 +2,7 @@ import { Router } from "express";
 import cartsModel from "../../dao/models/carts-model.js";
 import CartManager from "../../dao/file-system/carts-manager.js";
 import productModel from "../../dao/models/products-model.js";
+import mongoose from "mongoose";
 
 const router = Router();
 const manager = new CartManager('./src/dao/file-system/data/carts.json')
@@ -37,7 +38,8 @@ router.post('/', async (req, res) => {
 router.post('/:cid/products/:pid', async (req, res) => {
     try {
         const { cid, pid } = req.params;
-        const cartDoc = await cartsModel.findOne({ _id: cid });
+        const cartDoc = await cartsModel.findOne({ _id: mongoose.Types.ObjectId(cid) });
+        console.log(cartDoc);
         const productDoc = await productModel.findOne({ _id: pid });
         if (cartDoc && productDoc) {
             const index = cartDoc.products.map(e => e.product.toString()).indexOf(pid);
@@ -48,10 +50,10 @@ router.post('/:cid/products/:pid', async (req, res) => {
             } else {
                 await cartsModel.updateOne({ _id: cid }, { $push: { products: { product: pid, quantity: 1 } } });
             }
-            await manager.addProductToCart(cid, pid);
+            // await manager.addProductToCart(cid, pid);
             res.status(200).send({ status: 'sucess' });
         } else {
-            res.status(400).send({ status: 'Not Found', message: `El carrito o el producto a agregar no existe. Verificar id` })
+            return res.status(400).send({ status: 'Not Found', message: `El carrito o el producto a agregar no existe. Verificar id` })
         }
     } catch (err) {
         res.status(500).send({ status: 'Server Error', message: `Hay un problema en el servidor` + err })
@@ -116,7 +118,7 @@ router.put('/:id', async (req, res) => {
 router.put('/:cid/products/:pid', async (req, res) => {
     try {
         const { cid, pid } = req.params;
-        const cartDoc = await cartsModel.findOne({ _id: cid });
+        const cartDoc = await cartsModel.findOne({ _id: mongoose.Types.ObjectId(cid) });
         const productDoc = await productModel.findOne({ _id: pid });
         if (cartDoc && productDoc) {
             const index = cartDoc.products.map(e => e.product).indexOf(pid);

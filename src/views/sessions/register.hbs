@@ -1,8 +1,12 @@
 <div class="signin">
     <form action="/sessions/create"  method="post" class="form-signin">
         <h1 class="h3 mb-3 font-weight-normal">Please Sign in</h1>
-        <label for="inputEmail" class="sr-only">Name:</label>
-        <input name="name" type="text" class="form-control" placeholder="Name" required autofocus>
+        <label for="inputFirst" class="sr-only">First Name:</label>
+        <input name="first_name" type="text" class="form-control" placeholder="first name" required autofocus>
+        <label for="inputLast" class="sr-only">Last Name:</label>
+        <input name="last_name" type="text" class="form-control" placeholder="last name" required autofocus>
+        <label for="inputEmail" class="sr-only">Age</label>
+        <input name="age" type="number" class="form-control" placeholder="age" required autofocus>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>

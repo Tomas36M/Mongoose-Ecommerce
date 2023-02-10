@@ -8,7 +8,6 @@ router.get('/auth/github',
 
 router.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }),
     async (req, res) => {
-        console.log("Callback: ", req.user);
         req.session.user = req.user
         res.redirect('/products')
     }
@@ -33,8 +32,7 @@ router.post('/login', passport.authenticate('login', {
     }
     req.session.user = req.user;
     req.session.user.rol = req.user.rol
-    console.log(req.user);
-    res.redirect('/products')
+    res.cookie(process.env.COOKIE_NAME_JWT, req.user.token).redirect('/products')
 });
 
 // Vista para registrar entrenadores
@@ -59,7 +57,8 @@ router.get('/logout', async (req, res) => {
         if (err) {
             console.log(err)
             res.status(500).render('/errors/base', { error: err })
-        } else res.redirect('/sessions/login')
+        } 
+        else res.clearCookie(process.env.COOKIE_NAME_JWT).redirect('/sessions/login')
     })
 })
 

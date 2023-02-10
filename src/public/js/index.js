@@ -8,14 +8,14 @@ const deleteProduct = async (pid) => {
     })
 }
 
-const addProductToCart = async (pid) => {
-    await fetch(`/api/carts/63c644ddc42b52268bb69ac5/products/${pid}`, {
+const addProductToCart = async (pid, cid) => {
+    await fetch(`/api/carts/${cid}/products/${pid}`, {
         method: 'POST'
     })
 }
 
-const deleteProductFromCart = async (pid) => {
-    await fetch(`/api/carts/63c644ddc42b52268bb69ac5/products/${pid}`, {
+const deleteProductFromCart = async (pid,cid) => {
+    await fetch(`/api/carts/${cid}/products/${pid}`, {
         method: 'DELETE'
     })
 }

@@ -1,10 +1,15 @@
 import passport from "passport";
 import local from 'passport-local'
+import jwt from 'passport-jwt'
 import GitHubStrategy from 'passport-github2'
 import userModel from "../dao/models/users.js";
-import { createHash, isValidPassoword } from '../utils.js';
+import cartModel from '../dao/models/carts-model.js'
+import { createHash, isValidPassoword, generateToken, extractCookie } from '../utils.js';
 
 const LocalStrategy = local.Strategy;
+const JWTStrategy = jwt.Strategy
+const ExtractJWT = jwt.ExtractJwt
+
 
 passport.use('github', new GitHubStrategy(
     {
@@ -14,18 +19,24 @@ passport.use('github', new GitHubStrategy(
     },
     async (accessToken, refreshToken, profile, done) => {
 
-        console.log(profile);
-
         try {
-            const user = await userModel.findOne({ email: profile._json.login + '@gmail.com' })
+            const user = await userModel.findOne({ email: profile._json.login.toLowerCase() + '@gmail.com' })
             if (user) {
                 console.log('User already exits');
                 return done(null, user)
             }
 
+            const cartId = await cartModel.create({});
+
+            const name = await profile._json.name.split(' ');
+
+            console.log(name);
+
             const newUser = {
-                name: profile._json.name,
-                email: profile._json.login + '@gmail.com',
+                first_name: name[0],
+                last_name: name[1],
+                email: profile._json.login.toLowerCase() + '@gmail.com',
+                cart_id: cartId._id.toString(),
                 password: ''
             }
 
@@ -46,18 +57,22 @@ const initializePassport = () => {
             passReqToCallback: true, usernameField: 'email'
         },
         async (req, username, password, done) => {
-            const { name, email } = req.body
+            const { first_name, last_name, email, age } = req.body
             try {
                 const user = await userModel.findOne({ email: username })
-                console.log(user);
                 if (user) {
                     console.log('User already exits');
                     return done(null, false)
                 }
 
+                const cartId = await cartModel.create({});
+
                 const newUser = {
-                    name,
+                    first_name,
+                    last_name,
                     email,
+                    age: age,
+                    cart_id: cartId._id.toString(),
                     password: createHash(password)
                 }
                 const result = await userModel.create(newUser)
@@ -85,6 +100,14 @@ const initializePassport = () => {
             }
         }
     ))
+
+    passport.use('jwt', new JWTStrategy({
+        jwtFromRequest: ExtractJWT.fromExtractors([extractCookie]),
+        secretOrKey: process.env.JWT_PRIVATE_KEY
+    }, async (jwt_payload, done) => {
+        done(null, jwt_payload)
+    }))
+
 
     passport.serializeUser((user, done) => {
         done(null, user._id)

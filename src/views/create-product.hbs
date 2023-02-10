@@ -1,10 +1,36 @@
-<div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-</div>
-<div class="mb-3">
-    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+<div class="p-5">
+    <h4 class="text-center mb-3">Add Product to list</h4>
+    <form action="/products/create" method="post">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Title</label>
+            <input name="title" type="text" class="form-control" id="exampleFormControlInput1"
+                placeholder="product title">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+            <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Price</label>
+            <input name="price" type="number" class="form-control" id="exampleFormControlInput1" placeholder="0000">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Code</label>
+            <input name="code" type="number" class="form-control" id="exampleFormControlInput1" placeholder="Write a unqiue code">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Category</label>
+            <input name="category" type="text" class="form-control" id="exampleFormControlInput1"
+                placeholder="category">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Stock</label>
+            <input name="stock" type="number" class="form-control" id="exampleFormControlInput1" placeholder="stock length">
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Primary</button>
+        </div>
+    </form>
 </div>
 
 <style>

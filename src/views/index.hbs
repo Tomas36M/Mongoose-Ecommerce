@@ -1,5 +1,5 @@
 <div class="px-3 py-4 my-4 text-center">
-    <h1 class="display-5 fw-bold">Welcome {{user.name}}</h1>
+    <h1 class="display-5 fw-bold">Welcome {{user.first_name}} {{user.last_name}}</h1>
 </div>
 <div class="container mt-4">
     <div class="row" id="products-card">
@@ -17,6 +17,7 @@
 
 
                 <div class="carousel-inner">
+                    {{#if thumbnails}}
                     {{#each thumbnails}}
                     <div class="carousel-item active">
                         <img src="{{this}}" alt="product image"
@@ -24,6 +25,13 @@
                             style="width:100%; height: 200px">
                     </div>
                     {{/each}}
+                    {{else}}
+                    <div class="carousel-item active">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYapw2J9IzqBG_0hWxzZVJKVXC3W5mtbtsmdKKPCXTvT1W70jfmFkPIL1u-fJ9M8jbQj8&usqp=CAU" alt="product image"
+                            class="d-block card-img-top img-fluid mx-auto d-block img-rounded"
+                            style="width:100%; height: 200px">
+                    </div>
+                    {{/if}}
                 </div>
 
             </div>
@@ -69,14 +77,16 @@
     <div class="offcanvas-body">
 
         {{#each cart.products}}
-        <div class="mt-2 card shadow-sm"> 
+        <div class="mt-2 card shadow-sm">
             <div class="card-body">
                 <h2 class="card-title">{{this.product.title}}</h2>
                 <p>Price: {{this.product.price}}</p>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                        <button value={{this.product._id}} type="button" class="btn btn-sm btn-outline-secondary add-product">add 1</button>
-                        <button value={{this.product._id}} type="button" class="btn btn-sm btn-outline-secondary delete-product-cart">delete 1</button>
+                        <button value={{this.product._id}} type="button"
+                            class="btn btn-sm btn-outline-secondary add-product">add 1</button>
+                        <button value={{this.product._id}} type="button"
+                            class="btn btn-sm btn-outline-secondary delete-product-cart">delete 1</button>
                     </div>
                     <small class="text-muted">quantity: {{this.quantity}}</small>
                 </div>

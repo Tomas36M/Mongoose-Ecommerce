@@ -1,4 +1,5 @@
 import { Router } from "express";
+import mongoose from "mongoose";
 import productModel from "../../dao/models/products-model.js";
 import cartsModel from "../../dao/models/carts-model.js";
 
@@ -25,8 +26,8 @@ router.get('/', async (req, res) => {
         sort: sort ? { price: sort } : null
     })
 
-    const cart = await cartsModel.findOne({ _id: '63c644ddc42b52268bb69ac5' }).populate('products.product').lean().exec();
-
+    const cart = await cartsModel.findOne({ _id: mongoose.Types.ObjectId(req.session.user.cart_id) }).populate('products.product').lean().exec();
+    console.log('carrito id', cart.products);
 
     result.prevLink = result.hasPrevPage ? `/products?page=${result.prevPage}` : ''
     result.nextLink = result.hasNextPage ? `/products?page=${result.nextPage}` : ''
@@ -34,10 +35,26 @@ router.get('/', async (req, res) => {
 
     res.render('index', {
         result,
-        cart,
+        cart: cart,
         user: req.session.user,
         rol: req.session.user.rol === 'admin'
     });
+})
+
+router.get('/create', (req, res) => {
+    res.render('create-product', {
+        user: req.session.user,
+        rol: req.session.user.rol === 'admin'
+    })
+})
+
+router.post('/create', async (req, res) => {
+    try{
+        await productModel.create(req.body)
+        res.redirect('products/')
+    } catch (err) {
+        res.render('errors/base', {error: 'Error: ' + err})
+    }
 })
 
 router.get('/:id', async (req, res) => {
@@ -48,12 +65,7 @@ router.get('/:id', async (req, res) => {
         user: req.session.user,
         rol: req.session.user.rol === 'admin'
     });
-})
-
-// router.post('/create', async (req, res) => {
-//     const result = await productModel.create(req.body)
-//     res.redirect('products/' + result.toString(_id))
-// })
+});
 
 
 export default router;
