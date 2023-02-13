@@ -27,7 +27,6 @@ router.get('/', async (req, res) => {
     })
 
     const cart = await cartsModel.findOne({ _id: mongoose.Types.ObjectId(req.session.user.cart_id) }).populate('products.product').lean().exec();
-    console.log('carrito id', cart.products);
 
     result.prevLink = result.hasPrevPage ? `/products?page=${result.prevPage}` : ''
     result.nextLink = result.hasNextPage ? `/products?page=${result.nextPage}` : ''
@@ -36,7 +35,13 @@ router.get('/', async (req, res) => {
     res.render('index', {
         result,
         cart: cart,
-        user: req.session.user,
+        user: {
+            first_name: req.user.first_name,
+            last_name: req.user.last_name,
+            email: req.user.email,
+            age: req.user.age,
+            rol: req.user.rol,
+        },
         rol: req.session.user.rol === 'admin'
     });
 })
@@ -49,11 +54,11 @@ router.get('/create', (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-    try{
+    try {
         await productModel.create(req.body)
         res.redirect('products/')
     } catch (err) {
-        res.render('errors/base', {error: 'Error: ' + err})
+        res.render('errors/base', { error: 'Error: ' + err })
     }
 })
 

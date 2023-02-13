@@ -30,8 +30,7 @@ router.post('/login', passport.authenticate('login', {
     if (!req.user) {
         return res.render('/errors/base', { error: 'Error en las credenciales' })
     }
-    req.session.user = req.user;
-    req.session.user.rol = req.user.rol
+    console.log(req.user);
     res.cookie(process.env.COOKIE_NAME_JWT, req.user.token).redirect('/products')
 });
 

@@ -94,6 +94,8 @@ const initializePassport = () => {
                     return done(null, false)
                 }
                 if (!isValidPassoword(user, password)) return done(null, false)
+                const token = generateToken(user)
+                user.token = token
                 return done(null, user)
             } catch (error) {
                 return done(error)

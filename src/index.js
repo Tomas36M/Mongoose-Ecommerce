@@ -14,6 +14,7 @@ import messagesViewRouter from './routes/messages/messages-views-router.js';
 import productViewRouter from './routes/products/product-views-route.js';
 import cartViewRouter from './routes/carts/carts-view-route.js';
 import sessionRouter from './routes/session/sessions-route.js';
+import usersRoute from './routes/session/user-view-rote.js';
 import cookieParser from "cookie-parser";
 import initializePassport from './config/passport.js';
 import { passportCall } from "./utils.js"
@@ -72,6 +73,7 @@ const adminAuth = (req, res, next) => {
 
 app.use('/sessions', sessionRouter)
 
+app.use('/users', passportCall('jwt'), usersRoute);
 app.use('/admin', adminAuth, adminViewRoute);
 app.use('/api/products', productRoute);
 app.use('/products', passportCall('jwt'), productViewRouter);
